@@ -1,4 +1,4 @@
-package LeetCode.java;
+package LeetCode.java.dp;
 
 /*
  * Problem Name : Filling Bookcase Shelves (1105)

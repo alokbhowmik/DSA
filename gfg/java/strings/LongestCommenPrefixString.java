@@ -1,4 +1,4 @@
-package gfg.java;
+package gfg.java.strings;
 
 /*
  * Problem Name : Longest Common Prefix of Strings
