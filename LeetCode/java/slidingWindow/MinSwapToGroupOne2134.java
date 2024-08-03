@@ -51,6 +51,35 @@ Time Complexity = O(n)
 Space Complexity = O(1)
  */
 public class MinSwapToGroupOne2134 {
+    /*
+     * 
+     * 
+     * 
+     *  Approach 1
+     * 
+     */
+    public int minSwaps1(int[] nums) {
+        int ones = 0, n = nums.length, x = 0, onesInWindow = 0;
+        for (int num : nums) {
+            ones += num;
+        }
+        int nums2[] = new int[2 * n];
+        for (int i = 0; i < n * 2; i++) {
+            nums2[i] = nums[i % n];
+        }
+        for (int i = 0; i < n * 2; i++) {
+            if (i >= ones && nums2[i - ones] == 1)
+                x--;
+            if (nums2[i] == 1)
+                x++;
+            onesInWindow = Math.max(x, onesInWindow);
+        }
+        return ones - onesInWindow;
+    }
+    
+    /*
+     * Approach 2
+     */
     public int minSwaps(int[] nums) {
         int ones = 0;
         int n = nums.length;
