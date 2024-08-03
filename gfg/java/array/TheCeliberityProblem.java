@@ -33,12 +33,24 @@ Seen this question in a real interview before ?
 Yes
 
 
-
-Time Complexity = O(n^2)
+Approach 1
+-------------
+Time Complexity = O(n^2) 
 Space Complexity = O(n)
 
+Approach 2
+---------------
+Time Complexity = O(n^2)
+Space Complexity = O(1)
  */
 public class TheCeliberityProblem {
+    /*
+     * 
+     *  Approach 1
+     * -----------------------
+     * Time Complexity = O(n^2) 
+     * Space Complexity = O(n)
+     
     public int celebrity(int mat[][]) {
         // code here
         int n = mat.length;
@@ -71,5 +83,41 @@ public class TheCeliberityProblem {
             }
         }
         return idx;
+    }
+    
+    */
+    /*
+     * 
+     * Approach 2
+     * --------------------
+     * Time Complexity = O(n^2) 
+     * Space Complexity = O(1)
+     */
+    public int celebrity(int mat[][]) {
+        // code here
+        int n = mat.length;
+        int celebrity = -1;
+        for(int c=0; c<n; c++){
+            int cnt = 0;
+            boolean isCurrCeleKnowOthers = false;
+            for(int r=0; r<n; r++){
+                cnt += r != c ? mat[r][c] : 0;
+            }
+            if(cnt == n-1){
+                if(celebrity == -1){
+                    for(int oth=0; oth<n; oth++){
+                        if(mat[c][oth] == 1 && c != oth){
+                            isCurrCeleKnowOthers = true;
+                        }
+                    }
+                    if(!isCurrCeleKnowOthers){
+                        celebrity = c;
+                    }
+                }else{
+                    return -1;
+                }
+            }
+        }
+        return celebrity;
     }
 }
