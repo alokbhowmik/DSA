@@ -3,7 +3,13 @@ public class India {
 	final int COURSER_SPEED = 71;
 
 	void showFlag() {
-		int ROWS = 25, COLS = 20, BRIKS = 2;
+		// System.out.println("Hey, Make Some Noise");
+		// System.out.;
+		// System.out.println("Let's Start!!!!");
+		// System.out.flush();
+		int ROWS , COLS , BRIKS = 7;
+		ROWS = 5 * BRIKS;
+		COLS = 6 * BRIKS;
 		for (int i = 0; i < ROWS - BRIKS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				if (j < BRIKS)
@@ -16,7 +22,7 @@ public class India {
 				} else if (((i == 3 || i == 5 || i == 7) && j == COLS - 1)) {
 					System.out.print("|");
 				} else {
-					if (i == 5 && j == 12) {
+					if (i == 5 && j == COLS - (int)(BRIKS * 2.5)) {
 						System.out.print("O");
 					} else {
 
@@ -28,16 +34,24 @@ public class India {
 			}
 			System.out.println();
 		}
+		for (int i = 0; i <= BRIKS; i++) {
+			// Space 
+			for (int j = 0; j <= BRIKS*2 - i - 1; j++) {
+				System.out.print(" ");
+				delay(COURSER_SPEED);
+			}
+			for (int j = i; j < 2 * i + 1; j++) {
+				System.out.print("*");
+				delay(COURSER_SPEED);
+			}
+			for (int j = 0; j < i; j++) {
+				System.out.print("*");
+				delay(COURSER_SPEED);
+			}
+			System.out.println();
+		}
 		happyIndipendenceDay();
-		// for (int i = 0; i < BRIKS; i++) {
-		// for (int j = 0; j < BRIKS - i; j++) {
-		// System.out.print(" ");
-		// }
-		// for (int j = 0; j <= (i * 2) + 1; j++) {
-		// System.out.print("*");
-		// }
-		// System.out.println();
-		// }
+		
 	}
 
 	void buildIndianMap2() {
@@ -366,7 +380,7 @@ public class India {
 			delay(this.COURSER_SPEED);
 		}
 		for (char ch : indipendece.toCharArray()) {
-			System.out.print(ch);
+			System.out.print("\\u001B[1m" + ch);
 			delay(this.COURSER_SPEED);
 		}
 		System.out.println();
