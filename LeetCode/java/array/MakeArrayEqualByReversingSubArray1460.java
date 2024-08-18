@@ -1,4 +1,4 @@
-package LeetCode.java.array;
+
 
 /**
  * MakeArrayEqualByReversingSubArray1460
