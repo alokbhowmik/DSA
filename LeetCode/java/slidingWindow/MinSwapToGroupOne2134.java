@@ -87,7 +87,7 @@ public class MinSwapToGroupOne2134 {
         for(int num: nums) ones+= num;
         if(ones == 0 || ones == 1) return 0;
         int minSwap = Integer.MAX_VALUE;
-        int zeros = 0, aZeros = 0;
+        int zeros = 0;
         int i=0, j=0;
         for(; j<ones; j++){
             if(nums[j] == 0) zeros++;
