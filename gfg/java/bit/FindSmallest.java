@@ -5,7 +5,7 @@
  * Not able to copy the problem statement. Kindly check the above Lin
 
  * 
- * Time Complexity : O(64) 
+ * Time Complexity : O(1) 
  * Space Complexity : O(1)
  * 
  */
@@ -13,7 +13,7 @@ class FindSmallest {
 
     public static int getSmallest(int n) {
         // code here
-        for(int i=0; i<64; i++){
+        for(int i=0; i<32; i++){
             int val = (1 << i) & n;
             if(val== 0){
                 return 1<<i;
