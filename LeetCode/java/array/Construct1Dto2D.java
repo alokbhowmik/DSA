@@ -1,4 +1,4 @@
-
+package LeetCode.java.array;
 /**
  * Construct1Dto2D
  * =======================
