@@ -13,7 +13,7 @@ public class TreeSet1 {
         }
 
         public int compareTo(Pair pair) {
-            return pair.first == this.first ? 0 : -1;
+            return pair.first == this.first && pair.second == this.second ? 0 : 1;
         }
 
         @Override
