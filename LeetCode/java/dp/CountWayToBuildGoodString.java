@@ -39,24 +39,25 @@ Constraints:
  */
 
 class CountWayToBuildGoodString {
-    private int MOD = (int)1e9 + 7;
+    private int MOD = (int) 1e9 + 7;
     private Integer dp[];
+
     public int countGoodStrings(int low, int high, int zero, int one) {
         int ans = 0;
         dp = new Integer[high + 1];
-        for(int len = low ; len <= high ; len++){
+        for (int len = low; len <= high; len++) {
             ans = (ans % MOD + dfs(zero, one, len) % MOD) % MOD;
         }
         return ans;
         // TC = O((high - low+ 1) * high) S.C = O(high + 1)
     }
-    
-    private int dfs(int zero, int one, int len){
-        if(len == 0) return 1;
-        if(len < 0) return 0;
-        if(dp[len] != null) return dp[len];
+
+    private int dfs(int zero, int one, int len) {
+        if (len == 0) return 1;
+        if (len < 0) return 0;
+        if (dp[len] != null) return dp[len];
         int addZero = dfs(zero, one, len - zero);
-        int addOne  = dfs(zero, one, len - one);
+        int addOne = dfs(zero, one, len - one);
         return dp[len] = (addZero % MOD + addOne % MOD) % MOD;
     }
 }

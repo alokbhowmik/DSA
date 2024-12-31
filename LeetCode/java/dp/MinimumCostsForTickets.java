@@ -50,23 +50,24 @@ costs.length == 3
 * */
 public class MinimumCostsForTickets {
     private Integer dp[];
+
     // T.C = O(N) SC = O(N)
     public int mincostTickets(int[] days, int[] costs) {
         int maxDay = days[days.length - 1];
         boolean[] travelDay = new boolean[maxDay + 1];
         dp = new Integer[maxDay + 1];
-        for(int day : days){
+        for (int day : days) {
             travelDay[day] = true;
         }
         return solve(travelDay, costs, days[0], maxDay);
     }
 
-    private int solve(boolean[] travelDay, int[] costs, int start, int maxDay){
-        if(start > maxDay ) return 0;
-        if(dp[start] != null) return dp[start];
-        if(!travelDay[start]) return solve(travelDay, costs, start + 1, maxDay);
-        int take_1_day  = costs[0] + solve(travelDay, costs, start + 1, maxDay);
-        int take_7_day  = costs[1] + solve(travelDay, costs, start + 7, maxDay);
+    private int solve(boolean[] travelDay, int[] costs, int start, int maxDay) {
+        if (start > maxDay) return 0;
+        if (dp[start] != null) return dp[start];
+        if (!travelDay[start]) return solve(travelDay, costs, start + 1, maxDay);
+        int take_1_day = costs[0] + solve(travelDay, costs, start + 1, maxDay);
+        int take_7_day = costs[1] + solve(travelDay, costs, start + 7, maxDay);
         int take_30_day = costs[2] + solve(travelDay, costs, start + 30, maxDay);
         return dp[start] = Math.min(take_1_day, Math.min(take_7_day, take_30_day));
     }
