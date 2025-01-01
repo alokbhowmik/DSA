@@ -29,7 +29,7 @@ import java.util.*;
  * 1<= arr.size() <=100
  * 1<= arr[i].size() <=10
  */
-public class PrintAnagramTogather {
+public class PrintAnagramTogether {
     public ArrayList<ArrayList<String>> anagrams(String[] arr) {
         // code here
         //["act", "god", "cat", "dog", "tac"]
