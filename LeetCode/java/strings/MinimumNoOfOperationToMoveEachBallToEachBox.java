@@ -59,26 +59,47 @@ public class MinimumNoOfOperationToMoveEachBallToEachBox {
 //        }
 
         // Approach 2 : TC = O(n) SC = O(n)
-        int[] left = new int[n];
-        int[] right = new int[n];
+//        int[] left = new int[n];
+//        int[] right = new int[n];
+//        int one = boxes.charAt(0) == '1' ? 1 : 0;
+//        left[0] = 0;
+//        for (int i = 1; i < n; i++) {
+//            left[i] = left[i - 1] + one;
+//            if (boxes.charAt(i) == '1')
+//                one++;
+//        }
+//        right[n - 1] = 0;
+//        one = boxes.charAt(n - 1) == '1' ? 1 : 0;
+//
+//
+//        for (int i = n - 2; i >= 0; i--) {
+//            right[i] = right[i + 1] + one;
+//            if (boxes.charAt(i) == '1')
+//                one++;
+//        }
+//        for (int i = 0; i < n; i++) {
+//            ans[i] = right[i] + left[i];
+//        }
+
+        // Approach 3 : TC = O(n) SC = O(1)
+        int leftOne = 0, rightOne = 0;
         int one = boxes.charAt(0) == '1' ? 1 : 0;
-        left[0] = 0;
+
         for (int i = 1; i < n; i++) {
-            left[i] = left[i - 1] + one;
+            leftOne += one;
+            ans[i] += leftOne;
             if (boxes.charAt(i) == '1')
                 one++;
         }
-        right[n - 1] = 0;
+
         one = boxes.charAt(n - 1) == '1' ? 1 : 0;
 
 
         for (int i = n - 2; i >= 0; i--) {
-            right[i] = right[i + 1] + one;
+            rightOne += one;
+            ans[i] += rightOne;
             if (boxes.charAt(i) == '1')
                 one++;
-        }
-        for (int i = 0; i < n; i++) {
-            ans[i] = right[i] + left[i];
         }
         return ans;
     }
