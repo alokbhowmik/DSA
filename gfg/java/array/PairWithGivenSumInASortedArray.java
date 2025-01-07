@@ -35,11 +35,26 @@ public class PairWithGivenSumInASortedArray {
     int countPairs(int arr[], int target) {
         // Approach 1 : TC = O(n) SC = O(n)
         int ans = 0;
-         Map<Integer, Integer> map = new HashMap<>();
-         for(int num : arr){
-             ans += map.getOrDefault(target - num, 0);
-             map.put(num, map.getOrDefault(num, 0) + 1);
-         }
+//         Map<Integer, Integer> map = new HashMap<>();
+//         for(int num : arr){
+//             ans += map.getOrDefault(target - num, 0);
+//             map.put(num, map.getOrDefault(num, 0) + 1);
+//         }
+
+        // Approach 2 : TC = O(n) SC = O(1)
+        int l = 0, r = arr.length - 1;
+        while(l < r){
+            int sum = arr[l] + arr[r];
+            if(sum == target){
+                ans++;
+                int temp = l + 1;
+                while(temp < r && arr[temp] == arr[l]){
+                    ans++;temp++;
+                }
+            }
+            if(sum >= target) r--;
+            else l++;
+        }
          return ans;
     }
 }
