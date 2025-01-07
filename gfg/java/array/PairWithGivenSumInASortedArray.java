@@ -33,7 +33,7 @@ Constraints:
 public class PairWithGivenSumInASortedArray {
 
     int countPairs(int arr[], int target) {
-
+        // Approach 1 : TC = O(n) SC = O(n)
         int ans = 0;
          Map<Integer, Integer> map = new HashMap<>();
          for(int num : arr){
