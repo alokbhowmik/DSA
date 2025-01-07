@@ -51,7 +51,7 @@ public class StringMatchingInAnArray {
                 if (i == j)
                     continue;
                 if (words[j].contains(words[i]) ) {
-                    if(!res.isEmpty() && res.get(res.size() - 1).equals(words[i])) continue;
+                    if(!res.isEmpty() && res.getLast().equals(words[i])) continue;
                     res.add(words[i]);
                 }
             }
