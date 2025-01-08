@@ -58,19 +58,78 @@ words[i] consists only of lowercase English letters.
 *
 * */
 public class CountPrefixSuffixPairI {
-
     public int countPrefixSuffixPairs(String[] words) {
         int n = words.length;
         int count = 0;
         // Approach 1 : TC = O(n^2*m) SC = O(1)
 
+//        for (int i = 0; i < n; i++) {
+//            for (int j = i + 1; j < n; j++) {
+//                if (words[i].length() <= words[j].length()) {
+//                    if (words[j].startsWith(words[i]) && words[j].endsWith(words[i])) count++;
+//                }
+//            }
+//        }
+        // Approach 2 : TC = O(n^2 * m ) SC = O(n)
         for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (words[i].length() <= words[j].length()) {
-                    if (words[j].startsWith(words[i]) && words[j].endsWith(words[i])) count++;
-                }
+            Trie prefixTrie = new Trie();
+            Trie suffixTrie = new Trie();
+            prefixTrie.insert(words[i]);
+            String revWord = new StringBuilder(words[i]).reverse().toString();
+            suffixTrie.insert(revWord);
+            for (int j = 0; j < i; j++) {
+                String prefix = words[j];
+                String suffix = new StringBuilder(prefix).reverse().toString();
+
+                if (prefixTrie.startWith(prefix) && suffixTrie.startWith(suffix)) count++;
             }
+
         }
         return count;
+    }
+
+    class TrieNode {
+        public boolean isEnd = false;
+        private final TrieNode[] links = new TrieNode[26];
+
+        public boolean contains(char ch) {
+            return links[ch - 'a'] != null;
+        }
+
+        public void put(char ch, TrieNode node) {
+            links[ch - 'a'] = node;
+        }
+
+        public TrieNode next(char ch) {
+            return links[ch - 'a'];
+        }
+    }
+
+    class Trie {
+        private final TrieNode root;
+
+        Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode node = root;
+            for (char ch : word.toCharArray()) {
+                if (!node.contains(ch)) {
+                    node.put(ch, new TrieNode());
+                }
+                node = node.next(ch);
+            }
+            // node.isEnd = true;
+        }
+
+        public boolean startWith(String word) {
+            TrieNode node = root;
+            for (char ch : word.toCharArray()) {
+                if (!node.contains(ch)) return false;
+                node = node.next(ch);
+            }
+            return true;
+        }
     }
 }
