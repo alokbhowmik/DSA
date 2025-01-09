@@ -36,12 +36,63 @@ words[i] and pref consist of lowercase English letters.
 * */
 public class CountWordsWithAGivenPrefix {
 
-    public int prefixCount(String[] words, String pref) {
+    class TrieNode{
+        TrieNode links[] = new TrieNode[26];
         int count = 0;
-        // TC = O(n*m) SC = O(1)
-        for(String word : words){
-            if(word.startsWith(pref)) count++;
+
+        public boolean isContains(char ch){
+            return links[ch - 'a'] != null;
         }
-        return count;
+
+        public TrieNode next(char ch){
+            return links[ch - 'a'];
+        }
+
+        public void add(char ch, TrieNode node){
+            if(isContains(ch)) return ;
+            links[ch - 'a'] = node;
+        }
+
     }
+
+    class Trie{
+        private TrieNode root;
+
+        Trie(){
+            root = new TrieNode();
+        }
+        public void add(String word){
+            TrieNode node = root;
+            for(char ch : word.toCharArray()){
+                node.add(ch, new TrieNode());
+                node = node.next(ch);
+                node.count++;
+            }
+        }
+
+        public int countPrefix(String word){
+            TrieNode node = root;
+            for(char ch : word.toCharArray()){
+                if(!node.isContains(ch)) return 0;
+                node = node.next(ch);
+            }
+            return node.count;
+        }
+    }
+
+    public int prefixCount(String[] words, String pref) {
+//        int count = 0;
+//        // TC = O(n*k) SC = O(1)
+//        for(String word : words){
+//            if(word.startsWith(pref)) count++;
+//        }
+//        return count;
+       // Approach 2 : TC = O(n * k + m ) SC = O(1)
+        Trie trie = new Trie();
+        for(String word : words){
+            trie.add(word);
+        }
+        return trie.countPrefix(pref);
+    }
+
 }
