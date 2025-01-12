@@ -40,17 +40,34 @@ public class TappingRainWatter {
 
         //  3 + 2 + 3 + 0 + 2 + 0 = 10
         // Approach 1 : TC = O(n) SC = O(n)
-        int n = arr.length ;
-        int[] left = new int[n];
-        left[0] = arr[0];
-        for(int i = 1; i<n; i++){
-            left[i] = Math.max(left[i - 1], arr[i]);
-        }
-        int rightMax = arr[n - 1];
+//        int n = arr.length;
+//        int[] left = new int[n];
+//        left[0] = arr[0];
+//        for (int i = 1; i < n; i++) {
+//            left[i] = Math.max(left[i - 1], arr[i]);
+//        }
+//        int rightMax = arr[n - 1];
+//        int sum = 0;
+//        for (int i = n - 2; i > 0; i--) {
+//            rightMax = Math.max(rightMax, arr[i]);
+//            sum += Math.min(rightMax, left[i]) - arr[i];
+//        }
+//        return sum;
+        // Approach 2 : TC = O(n) SC = O(1)
+        int l = 1, r = arr.length - 2 ;
         int sum = 0;
-        for(int i = n - 2; i>0; i--){
-            rightMax = Math.max(rightMax, arr[i]);
-            sum += Math.min(rightMax, left[i]) - arr[i];
+        int leftMax = arr[0], rightMax = arr[arr.length - 1];
+
+        while(l <= r){
+            leftMax  = Math.max(leftMax, arr[l]);
+            rightMax = Math.max(rightMax, arr[r]);
+            if(leftMax > rightMax){
+                sum += rightMax - arr[r];
+                r--;
+            }else{
+                sum += leftMax - arr[l];
+                l++;
+            }
         }
         return sum;
     }
