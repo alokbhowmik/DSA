@@ -52,18 +52,31 @@ public class FindthePrefixCommonArrayofTwoArrays {
          s2 = {3,1,2}
 
          */
-        Set<Integer> s1 = new HashSet<>();
-        Set<Integer> s2 = new HashSet<>();
-        int[] ans = new int[A.length];
-        for(int i = 0; i<A.length; i++){
-            s1.add(A[i]);
-            s2.add(B[i]);
-            int count = 0;
-            for(int num : s1){
-                if(s2.contains(num)) count++;
-            }
-            ans[i] = count;
+//        Set<Integer> s1 = new HashSet<>();
+//        Set<Integer> s2 = new HashSet<>();
+//        int[] ans = new int[A.length];
+//        for(int i = 0; i<A.length; i++){
+//            s1.add(A[i]);
+//            s2.add(B[i]);
+//            int count = 0;
+//            for(int num : s1){
+//                if(s2.contains(num)) count++;
+//            }
+//            ans[i] = count;
+//
+//        }
+//        return ans;
 
+        int n = A.length;
+        int[] freq = new int[n + 1];
+        int[] ans = new int[n];
+        int count = 0;
+        for(int i = 0; i<n; i++){
+            freq[A[i]]++;
+            if(freq[A[i]] == 2) count++;
+            freq[B[i]]++;
+            if(freq[B[i]] == 2) count++;
+            ans[i] = count;
         }
         return ans;
     }
