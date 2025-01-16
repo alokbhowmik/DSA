@@ -55,10 +55,26 @@ public class BitwiseXOROfAllPairings {
          */
         int n = nums1.length, m = nums2.length;
         int xor = 0;
-        for (int k : nums1) {
-            for (int i : nums2) {
-                xor = xor ^ k ^ i;
-            }
+//        for (int k : nums1) {
+//            for (int i : nums2) {
+//                xor = xor ^ k ^ i;
+//            }
+//        }
+        if (n % 2 == 0 && m % 2 == 0)
+            return 0;
+        if (n % 2 == 1) {
+            xor ^= calculateXor(nums2);
+        }
+        if (m % 2 == 1) {
+            xor ^= calculateXor(nums1);
+        }
+        return xor;
+    }
+
+    private int calculateXor(int[] nums) {
+        int xor = 0;
+        for (int num : nums) {
+            xor ^= num;
         }
         return xor;
     }
