@@ -10,6 +10,12 @@ package gfg.java.LinkedList;
  */
 
 public class IsEvenLength {
+    class Node
+    {
+        int data;
+        Node next;
+        Node(int d) {data = d; next = null; }
+    }
     public boolean isLengthEven(Node head) {
         // code here
         int cnt = 0;

@@ -33,6 +33,12 @@ Space Complexity : O(1) excluding Auxiliary space due to Recurtion
  * 
  */
 public class Add1ToALinkedList {
+    class Node
+    {
+        int data;
+        Node next;
+        Node(int d) {data = d; next = null; }
+    }
     private int carry = 0;
     void add(Node head){
         if(head == null) return ;

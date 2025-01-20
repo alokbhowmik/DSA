@@ -38,6 +38,12 @@ Space Complexity = O(1)
 
  */
 public class LengthOfALoop {
+    class Node
+    {
+        int data;
+        Node next;
+        Node(int d) {data = d; next = null; }
+    }
     public int countNodesinLoop(Node head) {
         // Add your code here.
         Node slow = head, fast = head;

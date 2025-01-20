@@ -32,6 +32,12 @@ Time Complexity : O(N)
 Space Complexity : O(1)
  */
 class DeleteAlterNetNode {
+    class Node
+    {
+        int data;
+        Node next;
+        Node(int d) {data = d; next = null; }
+    }
     public void deleteAlt(Node head) {
         // Code Here
         Node fast = head;
