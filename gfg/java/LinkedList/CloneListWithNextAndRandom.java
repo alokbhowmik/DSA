@@ -63,28 +63,58 @@ public class CloneListWithNextAndRandom {
     public Node cloneLinkedList(Node head) {
         // code here
         //   curr  copy
-        Map<Node, Node> map = new HashMap<>();
-        Node curr = head;
-        Node temp = null, nh = null;
+//        Map<Node, Node> map = new HashMap<>();
+//        Node curr = head;
+//        Node temp = null, nh = null;
+//
+//        while(curr != null){
+//            map.put(curr, new Node(curr.data));
+//            curr = curr.next;
+//        }
+//
+//        curr = head;
+//        while(curr != null){
+//            Node copyNode = map.get(curr);
+//            Node next = curr.next != null ? map.get(curr.next) : null;
+//            Node rand = curr.random != null ? map.get(curr.random) : null;
+//            copyNode.random = rand;
+//            if(nh == null){
+//                nh = copyNode;
+//                temp = nh;
+//            }else{
+//                temp.next = copyNode;
+//                temp = temp.next;
+//            }
+//            curr = curr.next;
+//        }
+//        return nh;
+
+        Node nh = null, curr = head;
 
         while(curr != null){
-            map.put(curr, new Node(curr.data));
-            curr = curr.next;
-        }
+            Node copy = new Node(curr.data);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+            if(nh == null){
+                nh = copy;
+            }
 
+        }
         curr = head;
         while(curr != null){
-            Node copyNode = map.get(curr);
-            Node next = curr.next != null ? map.get(curr.next) : null;
-            Node rand = curr.random != null ? map.get(curr.random) : null;
-            copyNode.random = rand;
-            if(nh == null){
-                nh = copyNode;
-                temp = nh;
-            }else{
-                temp.next = copyNode;
-                temp = temp.next;
+            Node rand = curr.random != null ? curr.random : null;
+            if(rand != null){
+                curr.next.random = rand.next;
             }
+            curr = curr.next.next;
+        }
+        curr = head;
+        while(curr != null){
+            Node copy = curr.next;
+            Node copyNext = copy.next != null ? copy.next.next : null;
+            curr.next = copy.next;
+            copy.next = copyNext;
             curr = curr.next;
         }
         return nh;
