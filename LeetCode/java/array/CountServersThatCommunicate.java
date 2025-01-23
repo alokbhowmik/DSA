@@ -1,5 +1,7 @@
 package array;
-import  java.util.*;
+
+import java.util.LinkedList;
+import java.util.Queue;
 /*
 *
 *
@@ -76,14 +78,34 @@ public class CountServersThatCommunicate {
     }
     public int countServers(int[][] grid) {
         int n = grid.length, m = grid[0].length;
-        int ans = 0;
-        for(int r = 0; r < n; r++){
-            for(int c = 0; c<m; c++){
+//        int ans = 0;
+//        for(int r = 0; r < n; r++){
+//            for(int c = 0; c<m; c++){
+//                if(grid[r][c] == 1){
+//                    ans += solve(grid, r, c, m, n);
+//                }
+//            }
+//        }
+//        return ans;
+        int[] rows = new int[n];
+        int[] cols = new int[m];
+        int count = 0;
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < m; c++) {
                 if(grid[r][c] == 1){
-                    ans += solve(grid, r, c, m, n);
+                    rows[r]++;
+                    cols[c]++;
                 }
             }
         }
-        return ans;
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < m; c++) {
+                if (grid[r][c] == 1 && (rows[r] > 1 || cols[c] > 1)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+
     }
 }
