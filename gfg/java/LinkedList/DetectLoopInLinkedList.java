@@ -45,12 +45,21 @@ public class DetectLoopInLinkedList {
     public static boolean detectLoop(Node head) {
         // Add code here
         // TC = O(n) SC = O(n)
-        Set<Node> set = new HashSet<>();
-        Node curr = head;
-        while(curr != null){
-            if(set.contains(curr)) return true;
-            set.add(curr);
-            curr = curr.next;
+//        Set<Node> set = new HashSet<>();
+//        Node curr = head;
+//        while(curr != null){
+//            if(set.contains(curr)) return true;
+//            set.add(curr);
+//            curr = curr.next;
+//        }
+//        return false;
+
+        // Approach 2 : Tc = O(n) SC = O(1)
+        Node fast = head, slow = head;
+        while(fast!= null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow) return true;
         }
         return false;
     }
