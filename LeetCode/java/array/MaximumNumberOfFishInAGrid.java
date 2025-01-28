@@ -1,4 +1,5 @@
 package array;
+import java.util.*;
 /*
 *
 * Problem Name : Maximum Number of Fish in a Grid
@@ -52,7 +53,7 @@ public class MaximumNumberOfFishInAGrid {
         // System.out.println(r + " : " + c);
         int sum = grid[r][c];
         grid[r][c] = 0;
-        for (int dir[] : directions) {
+        for (int[] dir : directions) {
             int nr = dir[0] + r, nc = c + dir[1];
             sum += dfs(nr, nc, grid);
         }
@@ -65,10 +66,30 @@ public class MaximumNumberOfFishInAGrid {
         for (int r = 0; r < n; r++) {
             for (int c = 0; c < m; c++) {
                 if (grid[r][c] > 0) {
-                    max = Math.max(max, dfs(r, c, grid));
+                    max = Math.max(max, bfs(r, c, grid));
                 }
             }
         }
         return max;
+    }
+
+    int bfs(int r, int c, int[][] grid) {
+        int sum = grid[r][c];
+        Queue<int[]> que = new LinkedList<>();
+        que.offer(new int[] { r, c });
+        grid[r][c] = 0;
+        while (!que.isEmpty()) {
+            int[] top = que.poll();
+            for (int[] dir : directions) {
+                int nr = top[0] + dir[0];
+                int nc = top[1] + dir[1];
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] > 0) {
+                    sum += grid[nr][nc];
+                    que.offer(new int[] { nr, nc });
+                    grid[nr][nc] = 0;
+                }
+            }
+        }
+        return sum;
     }
 }
