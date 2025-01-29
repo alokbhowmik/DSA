@@ -1,4 +1,7 @@
 package gfg.java.array;
+
+import java.util.*;
+
 /*
 * Problem Link : https://www.geeksforgeeks.org/problems/union-of-two-arrays3538/1
 * Problem Statement :
