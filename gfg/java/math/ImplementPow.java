@@ -26,6 +26,19 @@ Either b is not zero or e > 0.
 public class ImplementPow {
     double power(double b, int e) {
         // code here
-        return Math.pow(b, e);
+//        return Math.pow(b, e);
+        if(e == 0) return 1;
+        if(e == 1) return b;
+
+        boolean neg = (e < 0);
+        e = Math.abs(e);
+        double sol = power(b, e/2);
+        double ans ;
+        if(e % 2 == 0){
+            ans = sol * sol;
+        }else{
+            ans = b * sol * sol;
+        }
+        return neg ? 1.0 / ans : ans;
     }
 }
