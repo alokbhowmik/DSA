@@ -1,4 +1,4 @@
-package math;
+package backtraking;
 /*
 * Problem Name : Implement Pow
 *
