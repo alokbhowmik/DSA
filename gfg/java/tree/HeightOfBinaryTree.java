@@ -1,4 +1,5 @@
 package tree;
+import java.util.*;
 /*
 *
 * Problem Name : Height of Binary Tree
@@ -43,5 +44,21 @@ public class HeightOfBinaryTree {
         int left  = node.left  == null ? 0 : height(node.left);
         int right = node.right == null ? 0 : height(node.right);
         return Math.max(left, right) + 1;
+    }
+
+    int bfs(Node node){
+        Queue<Node> que = new LinkedList<>();
+        int height = -1;
+        que.offer(node);
+        while(!que.isEmpty()){
+            int size = que.size();
+            height++;
+            while(size-- > 0){
+                Node curr = que.poll();
+                if(curr.left != null) que.offer(curr.left);
+                if(curr.right != null) que.offer(curr.right);
+            }
+        }
+        return height;
     }
 }
