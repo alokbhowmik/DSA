@@ -42,24 +42,37 @@ Constraints:
 * */
 public class CheckIfArrayIsSortedAndRotated {
     public boolean check(int[] nums) {
-        int n = nums.length ;
-        Queue<Integer> que = new LinkedList<>();
-        for(int num : nums) que.offer(num);
-        while(n-- > 0){
-            int num = -1;
-            boolean isSorted = true;
-            for(int ele : que){
-                if(ele >= num){
-                    num = ele;
-                }else {
-                    isSorted = false;
-                    break;
-                }
+//        int n = nums.length ;
+//        Queue<Integer> que = new LinkedList<>();
+//        for(int num : nums) que.offer(num);
+//        while(n-- > 0){
+//            int num = -1;
+//            boolean isSorted = true;
+//            for(int ele : que){
+//                if(ele >= num){
+//                    num = ele;
+//                }else {
+//                    isSorted = false;
+//                    break;
+//                }
+//            }
+//            if(isSorted) return true;
+//            int first = que.poll();
+//            que.offer(first);
+//        }
+//        return false;
+
+        int inversion = 0;
+        //  4 5 1 2 3
+        for(int i = 1; i < nums.length ; i++){
+            if(nums[i - 1] > nums[i]){
+                inversion++;
             }
-            if(isSorted) return true;
-            int first = que.poll();
-            que.offer(first);
         }
-        return false;
+        if(nums[0] < nums[nums.length - 1]) {
+            inversion++;
+        }
+        return inversion <= 1;
+
     }
 }
