@@ -36,4 +36,22 @@ s1.length == s2.length
 s1 and s2 consist of only lowercase English letters.
 * */
 public class CheckifOneStringSwapCanMakeStringsEqual {
+    public boolean areAlmostEqual(String s1, String s2) {
+        if (s1.equals(s2))
+            return true;
+        int i = -1, j = -1;
+        int missmatch = 0;
+        for (int k = 0; k < s1.length(); k++) {
+            if (s1.charAt(k) != s2.charAt(k)) {
+                missmatch++;
+                if (i == -1) {
+                    i = k;
+                } else if (j == -1) {
+                    j = k;
+                }
+            }
+        }
+        return (missmatch == 2 && s1.charAt(i) == s2.charAt(j) && s1.charAt(j) == s2.charAt(i));
+
+    }
 }
