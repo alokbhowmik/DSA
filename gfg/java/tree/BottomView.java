@@ -52,18 +52,19 @@ Constraints:
 Time Complexity : O(n)
 Space Complexity : O(n)
  */
-class Node {
-    int data, hd;
-    Node left = null, right = null;
-    Node(int key) {
-        this.data = key;
-        this.hd = Integer.MAX_VALUE;
-        this.left = null;
-        this.right = null;
-    }
-}
+
 
 public class BottomView {
+    class Node {
+        int data, hd;
+        Node left = null, right = null;
+        Node(int key) {
+            this.data = key;
+            this.hd = Integer.MAX_VALUE;
+            this.left = null;
+            this.right = null;
+        }
+    }
     class Pair{
         int level;
         int val;
