@@ -41,20 +41,27 @@ Constraints:
 1 ≤ node->data ≤ 10^9
 * */
 public class CheckForBST {
-    void inorderTraversal(Node root, ArrayList<Integer> ans){
-        if(root == null) return;
-        inorderTraversal(root.left, ans);
-        ans.add(root.data);
-        inorderTraversal(root.right, ans);
+//    void inorderTraversal(Node root, ArrayList<Integer> ans){
+//        if(root == null) return;
+//        inorderTraversal(root.left, ans);
+//        ans.add(root.data);
+//        inorderTraversal(root.right, ans);
+//    }
+    boolean solve(Node root, int min, int max){
+        if(root == null) return true;
+        if(root.data <= min || root.data >= max) return false;
+        return solve(root.left, min, root.data) && solve(root.right, root.data, max);
     }
+
     boolean isBST(Node root) {
 //         code here.
-         ArrayList<Integer> ans = new ArrayList<>();
-         inorderTraversal(root, ans);
-         // System.out.println(ans);
-         for(int i = 1; i < ans.size(); i++){
-             if(ans.get(i) <= ans.get(i - 1) ) return false;
-         }
-         return true;
+//         ArrayList<Integer> ans = new ArrayList<>();
+//         inorderTraversal(root, ans);
+//         // System.out.println(ans);
+//         for(int i = 1; i < ans.size(); i++){
+//             if(ans.get(i) <= ans.get(i - 1) ) return false;
+//         }
+//         return true;
+        return solve(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 }
