@@ -2,6 +2,8 @@ package array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 /*
 *
@@ -32,10 +34,17 @@ public class K_LargestElements {
     public ArrayList<Integer> kLargest(int[] arr, int k) {
         // Your code here
         ArrayList<Integer> res = new ArrayList<>();
-        Arrays.sort(arr);
-        for(int i = arr.length - 1; i>= arr.length - k; i--){
-            res.add(arr[i]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int num : arr){
+            pq.offer(num);
+            if(pq.size() > k ){
+                pq.poll();
+            }
         }
+        while(!pq.isEmpty()){
+            res.add(pq.poll());
+        }
+        Collections.reverse(res);
         return res;
     }
 }
