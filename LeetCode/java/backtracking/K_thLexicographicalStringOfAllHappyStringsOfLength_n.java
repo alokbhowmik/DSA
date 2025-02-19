@@ -48,6 +48,7 @@ public class K_thLexicographicalStringOfAllHappyStringsOfLength_n {
     private final char[] chars = {'a', 'b', 'c'};
 
     private void solve(StringBuilder sb, int n, int k){
+        // TC = O(n * 2^n) SC = O(k)
         if(sb.length() == n){
             res.add(sb.toString());
             return;
