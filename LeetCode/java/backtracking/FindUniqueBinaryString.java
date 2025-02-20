@@ -60,20 +60,10 @@ public class FindUniqueBinaryString {
         sb.deleteCharAt(sb.length() - 1); // backtrack
     }
     public String findDifferentBinaryString(String[] nums) {
-        Set<String> set = new HashSet<>();
-        Collections.addAll(set, nums);
-        Stack<String> stack = new Stack<>();
-        stack.push("0");
-        stack.push("1");
-        while(!stack.isEmpty()){
-            String curr = stack.pop();
-            if(curr.length() == nums[0].length()){
-                if(set.contains(curr)) continue;
-                return curr;
-            }
-            stack.push(curr + "0");
-            stack.push(curr + "1");
+        StringBuilder ans = new StringBuilder();
+        for(int i = 0; i<nums.length; i++){
+            ans.append(nums[i].charAt(i) == '0' ? '1' : '0');
         }
-        return "";
+        return ans.toString();
     }
 }
