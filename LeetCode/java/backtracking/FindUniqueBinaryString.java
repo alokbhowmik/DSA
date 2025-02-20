@@ -3,6 +3,7 @@ package backtracking;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 /*
 *
@@ -61,7 +62,18 @@ public class FindUniqueBinaryString {
     public String findDifferentBinaryString(String[] nums) {
         Set<String> set = new HashSet<>();
         Collections.addAll(set, nums);
-        solve(new StringBuilder(), set, nums[0].length());
-        return ans ;
+        Stack<String> stack = new Stack<>();
+        stack.push("0");
+        stack.push("1");
+        while(!stack.isEmpty()){
+            String curr = stack.pop();
+            if(curr.length() == nums[0].length()){
+                if(set.contains(curr)) continue;
+                return curr;
+            }
+            stack.push(curr + "0");
+            stack.push(curr + "1");
+        }
+        return "";
     }
 }
