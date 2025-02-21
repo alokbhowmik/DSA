@@ -1,4 +1,3 @@
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Main {
@@ -12,10 +11,6 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
-        StringBuilder className = new StringBuilder();
-        for (String s : name.split(" ")){
-            className.append(s.substring(0, 1).toUpperCase()).append(s.substring(1));
-        }
-        System.out.println(className.toString());
+        ClassGenerator classGenerator = new ClassGenerator(name);
     }
 }

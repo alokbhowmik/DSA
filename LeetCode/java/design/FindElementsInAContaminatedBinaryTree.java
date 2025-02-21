@@ -114,6 +114,7 @@ public class FindElementsInAContaminatedBinaryTree {
         buildTree(root.right, 2 * val + 2);
     }
     public boolean find(int target) {
+        // TC = O(1)
         return set.contains(target);
     }
 
