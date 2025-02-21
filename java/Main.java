@@ -11,6 +11,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
-        ClassGenerator classGenerator = new ClassGenerator(name);
+        System.out.println("Please Choose Path option : \n 1 : LeetCode \n 2 : GFG");
+        int path = scanner.nextInt();
+        ClassGenerator classGenerator = new ClassGenerator(name, path);
     }
 }

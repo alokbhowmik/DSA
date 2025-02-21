@@ -1,9 +1,20 @@
 import java.io.FileWriter;
 
 public class ClassGenerator {
+    private final String pathLeetCode = "F:\\DSA\\LeetCode\\java\\";
+    private final String pathGfg = "F:\\DSA\\gfg\\java\\";
+    private final String defaultPath = "F:\\DSA\\java\\";
+    private int pathIdx = 0;
+
     ClassGenerator(String name) {
         generateClass(name);
     }
+
+    ClassGenerator(String name, int path) {
+        this.pathIdx = path;
+        generateClass(name);
+    }
+
 
     private String createClassName(String name) {
         StringBuilder className = new StringBuilder();
@@ -18,7 +29,7 @@ public class ClassGenerator {
             String className = createClassName(name) ;
             String classContent = generateClassContent(name, className);
             className += ".java";
-            String path = "F:\\DSA\\java\\";
+            String path = pathIdx == 1 ? pathLeetCode : pathIdx == 2 ? pathGfg : defaultPath;
             try (FileWriter file = new FileWriter(path + className)) {
 
                 file.write(classContent);
