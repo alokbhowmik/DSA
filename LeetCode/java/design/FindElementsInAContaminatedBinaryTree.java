@@ -1,4 +1,8 @@
 package design;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /*
 *
 *
@@ -95,6 +99,7 @@ public class FindElementsInAContaminatedBinaryTree {
 
 
     private final TreeNode root;
+    private final Set<Integer> set = new HashSet<>();
 
     public FindElementsInAContaminatedBinaryTree(TreeNode root) {
         this.root = root;
@@ -104,17 +109,12 @@ public class FindElementsInAContaminatedBinaryTree {
         // TC = O(n)
         if(root == null ) return;
         root.val = val;
+        set.add(val);
         buildTree(root.left, 2 * val + 1);
         buildTree(root.right, 2 * val + 2);
     }
     public boolean find(int target) {
-        return find(root, target);
+        return set.contains(target);
     }
 
-    private boolean find(TreeNode root, int target){
-        // TC = O(n)
-        if(root == null) return false;
-        if(root.val == target) return true;
-        return find(root.left, target) || find(root.right, target);
-    }
 }
