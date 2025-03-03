@@ -43,27 +43,23 @@ pivot equals to an element of nums.
 * Approach 1 
 *--------------
 *TC = O(n) SC = O(1)
+*
+* * Approach 2 : Two Pointer
+*--------------
+*TC = O(n) SC = O(1)
+*
 */
 public class PartitionArrayAccordingToGivenPivot{
     public int[] pivotArray(int[] nums, int pivot) {
-        int i = 0;
         int n = nums.length;
-        int res[] = new int[n];
-        for(int num : nums){
-            if(num < pivot){
-                res[i++] = num;
-            }
+        int[] res = new int[n];
+        int l = 0, r = n - 1;
+        for(int i = 0, j = n - 1; i < n && j >= 0 ; i++,j--){
+            if(nums[i] < pivot) res[l++] = nums[i];
+            if(nums[j] > pivot) res[r--] = nums[j];
         }
-        for(int num : nums){
-            if(num == pivot){
-                res[i++] = num;
-            }
-        }
-        for(int num : nums){
-            if(num > pivot){
-                res[i++] = num;
-            }
-        }
+        while(l <= r) res[l++] = pivot;
         return res;
+
     }
 }
