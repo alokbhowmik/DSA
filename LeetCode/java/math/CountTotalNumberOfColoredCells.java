@@ -34,15 +34,13 @@ Constraints:
 * Approach 1 
 *--------------
 *TC = O(n) SC = O(1)
+*
+* * Approach 2
+*--------------
+*TC = O(1) SC = O(1)
 */
 public class CountTotalNumberOfColoredCells{
     public long coloredCells(int n) {
-         long middleCells = 1;
-         long totalcells = 0;
-         middleCells = 2L * n - 1;
-         totalcells = middleCells;
-         long rows = (middleCells - 2 - 1)/2 + 1;
-         totalcells += rows * (2 + (rows - 1) * 2) ;
-         return totalcells;
+        return (long)2 * n * (n - 1) + 1;
     }
 }
