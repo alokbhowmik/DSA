@@ -28,17 +28,24 @@ Both strings s1 and s2 contain only uppercase English letters.
 * Approach 1 
 *--------------
 *TC = O(2 ^ (m * n)) SC = O(1)
+*
+* Approach 2
+*--------------
+*TC = O(n * m) SC = O(n * m )
+*
 */
 public class LongestCommonSubsequence{
     int lcs(String s1, String s2) {
         // code here
-        return solve(s1, s2, 0, 0);
+        Integer[][] dp = new Integer[s1.length() + 1][s2.length() + 1];
+        return solve(s1, s2, 0, 0, dp);
     }
-    private int solve(String s1, String s2, int i, int j ){
+    private int solve(String s1, String s2, int i, int j, Integer[][] dp ){
         if(i >= s1.length() || j >= s2.length()) return  0 ;
+        if (dp[i][j] != null) return dp[i][j];
         if(s1.charAt(i) == s2.charAt(j)){
-            return 1 + solve(s1, s2, i + 1, j + 1);
+            return dp[i][j] = 1 + solve(s1, s2, i + 1, j + 1, dp);
         }
-        return Math.max(solve(s1, s2, i + 1, j ), solve(s1, s2, i, j + 1));
+        return dp[i][j] = Math.max(solve(s1, s2, i + 1, j, dp ), solve(s1, s2, i, j + 1, dp));
     }
 }
