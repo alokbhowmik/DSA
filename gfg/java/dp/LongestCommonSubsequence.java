@@ -33,12 +33,24 @@ Both strings s1 and s2 contain only uppercase English letters.
 *--------------
 *TC = O(n * m) SC = O(n * m )
 *
+* Approach 3 : Top Down
+*--------------
+* TC = O(m * n) SC = O(m * n )
 */
 public class LongestCommonSubsequence{
     int lcs(String s1, String s2) {
         // code here
-        Integer[][] dp = new Integer[s1.length() + 1][s2.length() + 1];
-        return solve(s1, s2, 0, 0, dp);
+        int[][] dp = new int[s1.length() + 1][s2.length() + 1];
+        for(int i = 1; i<=s1.length(); i++){
+            for(int j = 1; j <= s2.length(); j++){
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                }else{
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[s1.length()][s2.length()];
     }
     private int solve(String s1, String s2, int i, int j, Integer[][] dp ){
         if(i >= s1.length() || j >= s2.length()) return  0 ;
