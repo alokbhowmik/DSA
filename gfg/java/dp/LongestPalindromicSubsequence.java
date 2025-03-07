@@ -35,11 +35,28 @@ The string contains only lowercase letters.
 * Approach 2 : Recurtion + memorization
 *--------------
 *TC = O(n*m) SC = O(n * m)
+*
+* Approach 3 : Top down
+*--------------
+*TC = O(n*m) SC = O(n * m )
 */
 public class LongestPalindromicSubsequence{
     public int longestPalinSubseq(String s) {
-        Integer[][] dp = new  Integer[s.length()][s.length()];
-        return solve(0, s.length(), s, dp);
+//        Integer[][] dp = new  Integer[s.length()][s.length()];
+//        return solve(0, s.length() - 1, s, dp);
+        int n = s.length();
+        int dp[][] = new int[n][n];
+        for (int j = n - 1; j >= 0; j--){
+            dp[j][j] = 1;
+            for (int i = j + 1; i < n; i++){
+                if (s.charAt(i) == s.charAt(j)){
+                    dp[j][i] = 2 + dp[j - 1][i + 1];
+                }else{
+                    dp[j][i] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[0][n - 1];
     }
 
     private int solve(int i, int j, String s, Integer[][] dp){
