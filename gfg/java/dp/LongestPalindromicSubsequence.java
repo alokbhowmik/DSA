@@ -28,24 +28,30 @@ Constraints:
 1 ≤ s.size() ≤ 1000
 The string contains only lowercase letters.
 *
-* Approach 1 
+* Approach 1 : Recurtion
 *--------------
 *TC = O(2 ^ n*m) SC = O(1)
+*
+* Approach 2 : Recurtion + memorization
+*--------------
+*TC = O(n*m) SC = O(n * m)
 */
 public class LongestPalindromicSubsequence{
     public int longestPalinSubseq(String s) {
-        return solve(0, s.length(), s);
+        Integer[][] dp = new  Integer[s.length()][s.length()];
+        return solve(0, s.length(), s, dp);
     }
 
-    private int solve(int i, int j, String s){
+    private int solve(int i, int j, String s, Integer[][] dp){
         if(i > j ) return  0 ;
         if(i == j) return  1;
+        if (dp[i][j] != null) return dp[i][j];
         if (s.charAt(i) == s.charAt(j)){
-            return  2 + solve(i + 1, j - 1, s);
+            return  dp[i][j] = 2 + solve(i + 1, j - 1, s, dp);
         }
-        return Math.max(
-                solve(i + 1, j, s),
-                solve(i, j -1, s)
+        return dp[i][j] = Math.max(
+                solve(i + 1, j, s, dp),
+                solve(i, j -1, s, dp)
         );
     }
 }
