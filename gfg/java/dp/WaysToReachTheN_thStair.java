@@ -25,14 +25,20 @@ Constraints:
 * Approach 1 : Recurtion
 *--------------
 *TC = O(2^n) SC = O(1)
+*
+* Approach 2 : Recurtion + Memorization
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class WaysToReachTheN_thStair{
     int countWays(int n) {
-        return solve(0, n);
+        Integer[] dp = new Integer[n + 1];
+        return solve(0, n, dp);
     }
-    private int solve(int i, int n){
+    private int solve(int i, int n, Integer[] dp){
         if(i > n) return  0 ;
         if (i == n ) return  1;
-        return solve(i + 1, n) + solve(i + 2, n);
+        if(dp[i] != null) return dp[i];
+        return dp[i] = solve(i + 1, n, dp) + solve(i + 2, n, dp);
     }
 }
