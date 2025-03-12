@@ -42,17 +42,50 @@ Follow up: Can you solve the problem in O(log(n)) time complexity?
 * Approach 1 
 *--------------
 *TC = O(n) SC = O(1)
+*
+* Approach 2 : binary Search
+*--------------
+*TC = O(log(n)) SC = O(1)
 */
 public class MaximumCountOfPositiveIntegerAndNegativeInteger{
     public int maximumCount(int[] nums) {
         int negCount = 0, posCount = 0;
-        for(int num : nums){
-            if(num > 0){
-                posCount++;
-            }else if(num < 0){
-                negCount++;
+//        for(int num : nums){
+//            if(num > 0){
+//                posCount++;
+//            }else if(num < 0){
+//                negCount++;
+//            }
+//        }
+        negCount = findNegative(nums);
+        posCount = findPositive(nums);
+        return Math.max(negCount,posCount );
+    }
+
+    private int findNegative(int[] nums){
+
+        int l = 0, r = nums.length - 1;
+        while(l <= r){
+            int mid = (l + r)/ 2;
+            if(nums[mid]< 0){
+                l = mid + 1;
+            }else{
+                r = mid - 1;
             }
         }
-        return Math.max(negCount,posCount );
+        return l ;
+    }
+
+    private int findPositive(int[] nums){
+        int l = 0, r = nums.length - 1;
+        while(l <= r){
+            int mid = (l + r)/2;
+            if(nums[mid] > 0){
+                r = mid - 1;
+            }else{
+                l = mid + 1;
+            }
+        }
+        return nums.length - r - 1;
     }
 }
