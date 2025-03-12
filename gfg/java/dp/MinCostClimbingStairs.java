@@ -12,16 +12,21 @@ package dp;
 *TC = O(2^n) SC = O(1)
 *
 * Approach 2 : Recursion + Memorization
- *--------------
- *TC = O(n) SC = O(n)
+*--------------
+*TC = O(n) SC = O(n)
+*Approach 3 : Top-Down
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class MinCostClimbingStairs{
     int minCostClimbingStairs(int[] cost) {
-        Integer[] dp = new Integer[cost.length + 1];
-        return Math.min(
-                solve(0, cost.length, cost, dp),
-                solve(1, cost.length, cost, dp)
-        );
+        int[] dp = new int[cost.length + 2];
+        dp[cost.length] = 0 ;
+        dp[cost.length + 1] = 1000 ;
+        for(int i = cost.length - 1; i>= 0; i--){
+            dp[i] = cost[i] + Math.min(dp[i + 1], dp[i + 2]);
+        }
+        return Math.min(dp[0], dp[1]);
     }
 
     private int solve(int i, int n, int[] cost, Integer[] dp){
