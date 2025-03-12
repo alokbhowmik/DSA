@@ -17,16 +17,24 @@ package dp;
 *Approach 3 : Top-Down
 *--------------
 *TC = O(n) SC = O(n)
+*
+*Approach 4 : Optimize
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class MinCostClimbingStairs{
     int minCostClimbingStairs(int[] cost) {
-        int[] dp = new int[cost.length + 2];
-        dp[cost.length] = 0 ;
-        dp[cost.length + 1] = 1000 ;
+//        int[] dp = new int[cost.length + 2];
+//        dp[cost.length] = 0 ;
+//        dp[cost.length + 1] = 1000 ;
+        int a = 1000, b = 0;
         for(int i = cost.length - 1; i>= 0; i--){
-            dp[i] = cost[i] + Math.min(dp[i + 1], dp[i + 2]);
+            int value = cost[i] + Math.min(a, b);
+            int temp = b;
+            value = b;
+            a = temp ;
         }
-        return Math.min(dp[0], dp[1]);
+        return Math.min(a, b);
     }
 
     private int solve(int i, int n, int[] cost, Integer[] dp){
