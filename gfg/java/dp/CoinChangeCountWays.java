@@ -36,24 +36,26 @@ Constraints:
 *
 * Approach 3 : Bottom Up
 *--------------
-*TC = O(sum*n) SC = O(1)
+*TC = O(sum*n) SC = O(sum * n)
+*
+* Approach 4 : Optimize Bottom Up
+*--------------
+*TC = O(sum*n) SC = O(sum)
 */
 public class CoinChangeCountWays{
     public int count(int coins[], int sum) {
-        int[][] dp = new int[coins.length + 1][sum + 1];
+        int[] dp = new int[sum + 1];
 
-        for(int i = 0; i<coins.length; i++){
-            dp[i][sum] = 1;
-        }
+        dp[sum] = 1;
+
         for(int i = coins.length -1; i>= 0; i--){
             for(int curr = sum -1; curr >= 0; curr--){
-                dp[i][curr] += dp[i + 1][curr];
                 if(curr + coins[i] <= sum){
-                    dp[i][curr] += dp[i][curr + coins[i]];
+                    dp[curr] += dp[curr + coins[i]];
                 }
             }
         }
-        return dp[0][0];
+        return dp[0];
     }
 
     private int solve(int i, int curr, int[] coins, int sum, Integer[][] dp){
