@@ -38,18 +38,21 @@ Constraints:
 */
 public class MaximumCandiesAllocatedToKChildren{
     public int maximumCandies(int[] candies, long k) {
-        int right = 0 ;
+        int right = 0, left = 1, result = 0 ;
         for(int candy : candies){
             right = Math.max(right, candy);
         }
 
-        while(right > 0){
-            if(isPossible(candies, k, right)){
-                return right;
+        while(right >= left){
+            int mid = left + (right - left) / 2;
+            if(isPossible(candies, k, mid)){
+                result = mid;
+                left = mid + 1;
+            }else{
+                right = mid - 1;
             }
-            right--;
         }
-        return 0 ;
+        return result ;
     }
 
     private boolean isPossible(int[] candies, long k, int no){
