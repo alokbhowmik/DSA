@@ -29,18 +29,24 @@ Constraints:
 * Approach 1 : Recurtion
 *--------------
 *TC = O(2^n) SC = O(1)
+*
+* Approach 2 : Recurtion + Memorization
+*--------------
+*TC = O(sum*n) SC = O(1)
 */
 public class CoinChangeCountWays{
     public int count(int coins[], int sum) {
         // code here.
-        return solve(0, 0, coins, sum);
+        Integer[][] dp = new Integer[coins.length + 1][sum + 1];
+        return solve(0, 0, coins, sum, dp);
     }
 
-    private int solve(int i, int curr, int[] coins, int sum){
+    private int solve(int i, int curr, int[] coins, int sum, Integer[][] dp){
         if(curr == sum) return 1;
         if(curr > sum || i > coins.length) return  0 ;
-        int take = solve(i, curr + coins[i], coins, sum);
-        int skip = solve(i + 1, curr, coins, sum );
-        return take + skip ;
+        if (dp[i][curr] != null) return  dp[i][curr];
+        int take = solve(i, curr + coins[i], coins, sum, dp);
+        int skip = solve(i + 1, curr, coins, sum, dp );
+        return dp[i][curr] = take  + skip ;
     }
 }
