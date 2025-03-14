@@ -30,6 +30,12 @@ Constraints:
 
 Time Complexity : O(N*W)
 Space Complexity : O(N * W)
+
+ Approach 2 : Bottom Up
+
+ Time Complexity : O(N*W)
+ Space Complexity : O(N * W)
+
  */
 public class KnapSack_0_1 {
 
@@ -46,7 +52,16 @@ public class KnapSack_0_1 {
     }
     int knapSack(int W, int wt[], int val[]) {
         // your code here
-        Integer[][] dp = new Integer[wt.length + 1][W + 1];
-        return solve(0, W, wt, val, dp);
+        int[][] dp = new int[val.length + 1][W + 1];
+        for(int i = val.length - 1; i>= 0; i--){
+            for(int w = 1; w <= W; w++){
+                dp[i][w] = dp[i + 1][w];
+                if(w - wt[i] >= 0){
+                    dp[i][w] = Math.max(dp[i][w],
+                            val[i] + dp[i + 1][w - wt[i]]);
+                }
+            }
+        }
+        return dp[0][W];
     }
 }
