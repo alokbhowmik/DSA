@@ -43,6 +43,10 @@ Constraints:
 * Approach 3 : Bottom up
 *--------------
 *TC = O(n * sum) SC = O(n * sum)
+*
+* Approach 4 : Bottom up (Optimize)
+*--------------
+*TC = O(n * sum) SC = O(sum)
 */
 public class CoinChangeMinimumCoins{
     private final int inf = 100000;
@@ -50,21 +54,21 @@ public class CoinChangeMinimumCoins{
 //        Integer dp[][] = new Integer[coins.length + 1][sum + 1];
 //        int ans = solve(0, sum, coins, dp);
 //        return ans == inf ? -1 : ans;
-        int [][] dp = new int[coins.length + 1][sum + 1];
+        int[] dp = new int[sum + 1];
         for(int s = 1; s <= sum; s++){
-            dp[coins.length][s] = 100000;
+            dp[s] = 100000;
         }
 
         for(int i = coins.length - 1; i>=0; i--){
             for(int s = 0; s<= sum; s++){
-                dp[i][s] = dp[i + 1][s];
+
                 if(s - coins[i] >= 0){
-                    dp[i][s] = Math.min(dp[i][s], 1 + dp[i][s - coins[i]]);
+                    dp[s] = Math.min(dp[s], 1 + dp[s - coins[i]]);
                 }
             }
         }
-        if(dp[0][sum] == 100000) dp[0][sum] = -1;
-        return dp[0][sum];
+        if(dp[sum] == 100000) dp[sum] = -1;
+        return dp[sum];
     }
     private int solve(int i, int sum, int[] coins, Integer[][] dp){
         if(sum == 0) return  0 ;
