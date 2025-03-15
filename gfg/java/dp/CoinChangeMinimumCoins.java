@@ -34,19 +34,24 @@ Constraints:
 * Approach 1 
 *--------------
 *TC = O(2^(n * sum) SC = O(1)
+*
+* Approach 2 : Recursion + Memorization
+*--------------
+*TC = O(n * sum) SC = O(n * sum)
 */
 public class CoinChangeMinimumCoins{
     private final int inf = 100000;
     public int minCoins(int coins[], int sum) {
-        int ans = solve(0, sum, coins);
+        Integer dp[][] = new Integer[coins.length + 1][sum + 1];
+        int ans = solve(0, sum, coins, dp);
         return ans == inf ? -1 : ans;
     }
-    private int solve(int i, int sum, int[] coins){
+    private int solve(int i, int sum, int[] coins, Integer[][] dp){
         if(sum == 0) return  0 ;
         if(sum < 0 || i >= coins.length ) return  inf;
-
-        int take = 1 + solve(i, sum - coins[i], coins);
-        int skip = solve(i + 1, sum, coins);
-        return Math.min(take, skip);
+        if(dp[i][sum] != null) return  dp[i][sum];
+        int take = 1 + solve(i, sum - coins[i], coins, dp);
+        int skip = solve(i + 1, sum, coins, dp);
+        return dp[i][sum] = Math.min(take, skip);
     }
 }
