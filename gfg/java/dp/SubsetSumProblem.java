@@ -27,6 +27,10 @@ Constraints:
 * Approach 1  : Recurtion
 *--------------
 *TC = O(2^(sum + n) SC = O(1)
+*
+* Approach 2  : Recurtion + Memorization
+*--------------
+*TC = O(sum * n) SC = O(sum * n)
 */
 public class SubsetSumProblem{
 
