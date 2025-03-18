@@ -31,13 +31,31 @@ Constraints:
 * Approach 2  : Recurtion + Memorization
 *--------------
 *TC = O(sum * n) SC = O(sum * n)
+*
+* Approach 2  : Bottom - up
+*--------------
+*TC = O(sum * n) SC = O(sum * n)
 */
 public class SubsetSumProblem{
 
     Boolean isSubsetSum(int arr[], int sum) {
         // code here
-        Boolean[][] dp = new Boolean[arr.length + 1][sum + 1];
-        return solve(0, sum, arr, dp);
+//        Boolean[][] dp = new Boolean[arr.length + 1][sum + 1];
+//        return solve(0, sum, arr, dp);
+
+        boolean dp[][] = new boolean[arr.length + 1][sum + 1];
+        for(int i = 0; i<=arr.length; i++){
+            dp[i][0] = true;
+        }
+        for(int i = arr.length - 1; i>= 0; i--){
+            for(int s = 1 ; s <= sum; s++){
+                dp[i][s] = dp[i + 1][s]; // skip
+                if(s - arr[i] >= 0){
+                    dp[i][s] |= dp[i + 1][s - arr[i]];
+                }
+            }
+        }
+        return dp[0][sum];
     }
     private boolean solve(int i, int sum, int[] arr, Boolean[][] dp){
         if(sum == 0) return true;
