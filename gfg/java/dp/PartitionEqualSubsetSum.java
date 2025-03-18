@@ -31,7 +31,11 @@ Constraints:
 *
 * Approach 3 : Bottom - up
 *--------------
-*TC = O(2 ^ (sum * n) SC = O(1)
+*TC = O(2 ^ (sum * n) SC = O(n * sum)
+*
+* Approach 4 : Bottom - up
+*--------------
+*TC = O((sum * n) SC = O(sum)
 */
 public class PartitionEqualSubsetSum{
     boolean equalPartition(int arr[]) {
@@ -39,19 +43,20 @@ public class PartitionEqualSubsetSum{
         for(int num : arr) sum += num;
         if(sum % 2 == 1) return false;
 
-        boolean dp[][] = new boolean[arr.length + 1][sum/ 2 + 1];
-        for(int i = 0; i<=arr.length; i++){
-            dp[i][0] = true;
-        }
+
+        boolean dp[] = new boolean[sum/ 2 + 1];
+        dp[0] = true;
+
         for(int i = arr.length - 1; i>= 0; i--){
-            for(int s = 1 ; s <= sum/2; s++){
-                dp[i][s] = dp[i + 1][s]; // skip
+            for(int s = sum/2 ; s > 0; s--){
+                //dp[i][s] = dp[i + 1][s]; // skip
                 if(s - arr[i] >= 0){
-                    dp[i][s] |= dp[i + 1][s - arr[i]];
+                    dp[s] |= dp[s - arr[i]];
                 }
             }
+
         }
-        return dp[0][sum/2];
+        return dp[sum/2];
 //        Boolean[][] dp = new Boolean[arr.length + 1][sum/2 + 1];
 //        return solve(0, sum/2, arr, dp);
     }
