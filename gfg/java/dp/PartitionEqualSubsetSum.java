@@ -28,14 +28,32 @@ Constraints:
 * Approach 2 : Recurtion + memorization
 *--------------
 *TC = O((sum * n) SC = O(n * sum)
+*
+* Approach 3 : Bottom - up
+*--------------
+*TC = O(2 ^ (sum * n) SC = O(1)
 */
 public class PartitionEqualSubsetSum{
     boolean equalPartition(int arr[]) {
         int sum = 0;
         for(int num : arr) sum += num;
         if(sum % 2 == 1) return false;
-        Boolean[][] dp = new Boolean[arr.length + 1][sum/2 + 1];
-        return solve(0, sum/2, arr, dp);
+
+        boolean dp[][] = new boolean[arr.length + 1][sum/ 2 + 1];
+        for(int i = 0; i<=arr.length; i++){
+            dp[i][0] = true;
+        }
+        for(int i = arr.length - 1; i>= 0; i--){
+            for(int s = 1 ; s <= sum/2; s++){
+                dp[i][s] = dp[i + 1][s]; // skip
+                if(s - arr[i] >= 0){
+                    dp[i][s] |= dp[i + 1][s - arr[i]];
+                }
+            }
+        }
+        return dp[0][sum/2];
+//        Boolean[][] dp = new Boolean[arr.length + 1][sum/2 + 1];
+//        return solve(0, sum/2, arr, dp);
     }
     private boolean solve(int i, int sum, int[] arr, Boolean[][] dp){
         if(sum == 0) return true;
