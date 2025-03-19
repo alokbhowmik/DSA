@@ -42,12 +42,17 @@ Constraints:
 * Approach 3  : Bottom Up
 *--------------
 *TC = O(2 * n * k) SC = O(2 * n * k)
+*
+* Approach 4  : Bottom Up
+*--------------
+*TC = O(2 * n * k) SC = O(2 * k)
 */
 public class StockBuyAndSellMaxKTransactionsAllowed{
     int maxProfit(int prices[], int k) {
 //        Integer[][][] dp = new  Integer[prices.length + 1][k + 1][2];
 //        return solve(0, k, 0, prices, dp);
-        int[][][] dp = new int[prices.length + 1][k + 1][2];
+        // Approach 3 --
+        /* int[][][] dp = new int[prices.length + 1][k + 1][2];
         for(int i = prices.length - 1; i>= 0; i--){
             for(int j = 1; j <= k; j++){
                 for(int buy = 0; buy <= 1; buy++){
@@ -66,6 +71,27 @@ public class StockBuyAndSellMaxKTransactionsAllowed{
             }
         }
         return dp[0][k][0];
+
+         */
+        int[][] dp = new int[k + 1][2];
+        for(int i = prices.length - 1; i>= 0; i--){
+            for(int j = 1; j <= k; j++){
+                for(int buy = 0; buy <= 1; buy++){
+                    // dp[i][j][buy] = dp[i + 1][j][buy];
+                    if(buy == 0){
+                        dp[j][buy] = Math.max(
+                                dp[j][buy],
+                                -1*prices[i] + dp[j][1]
+                        ) ;
+                    }else{
+                        dp[j][buy] = Math.max(
+                                dp[j][buy],
+                                prices[i] + dp[j - 1][0]);
+                    }
+                }
+            }
+        }
+        return dp[k][0];
     }
 
     private int solve(int i,int k, int buy, int[] prices, Integer[][][] dp){
