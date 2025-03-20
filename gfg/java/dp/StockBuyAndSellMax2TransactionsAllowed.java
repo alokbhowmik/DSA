@@ -35,23 +35,28 @@ Constraints:
 * Approach 1 : Recurtion
 *--------------
 *TC = O(2^n) SC = O(1)
+*
+* Approach 2 : Recurtion + Memorization
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class StockBuyAndSellMax2TransactionsAllowed{
     public int maxProfit(int[] prices) {
-
-        return  solve(0, 2, 0 , prices);
+        Integer dp[][][] = new Integer[prices.length + 1][3][2];
+        return  solve(0, 2, 0 , prices, dp);
     }
-    private int solve(int i, int k, int buy, int[] prices){
+    private int solve(int i, int k, int buy, int[] prices, Integer dp[][][]){
         if(k == 0) return 0;
         if(i >= prices.length) return  0 ;
-        int skip = solve(i + 1, k, buy, prices);
+        if (dp[i][k][buy] != null) return dp[i][k][buy];
+        int skip = solve(i + 1, k, buy, prices, dp);
         int take = 0;
         if(buy == 0){
-            take = -1 * prices[i] + solve(i + 1, k, 1, prices);
+            take = -1 * prices[i] + solve(i + 1, k, 1, prices, dp);
         }else {
-            take = prices[i] + solve(i + 1, k - 1, 0, prices);
+            take = prices[i] + solve(i + 1, k - 1, 0, prices, dp);
         }
-        return  Math.max(skip, take);
+        return  dp[i][k][buy] = Math.max(skip, take);
 
     }
 }
