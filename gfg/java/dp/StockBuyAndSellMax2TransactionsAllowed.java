@@ -43,29 +43,33 @@ Constraints:
 * Approach 3 : Bottom up
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 4 : Optimize
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class StockBuyAndSellMax2TransactionsAllowed{
     public int maxProfit(int[] prices) {
 //        Integer dp[][][] = new Integer[prices.length + 1][3][2];
 //        return  solve(0, 2, 0 , prices, dp);
 
-        int[][][] dp = new int[prices.length + 1][3][2];
+        int[][] dp = new int[3][2];
         for(int i = prices.length-1 ; i >= 0; i--){
             for(int j = 1 ; j<=2; j++){
                 for(int buy = 0; buy <= 1 ; buy++){
-                    dp[i][j][buy]  =  dp[i + 1][j][buy];
+                    // dp[i][j][buy]  =  dp[i + 1][j][buy];
                     if(buy == 0){
-                        dp[i][j][buy] = Math.max(dp[i][j][buy],
-                                -1 *prices[i] +  dp[i + 1][j][1]);
+                        dp[j][buy] = Math.max(dp[j][buy],
+                                -1 *prices[i] +  dp[j][1]);
                     }else{
-                        dp[i][j][buy] = Math.max(
-                                dp[i][j][buy],
-                                prices[i] +  dp[i + 1][j-1][0]);
+                        dp[j][buy] = Math.max(
+                                dp[j][buy],
+                                prices[i] +  dp[j-1][0]);
                     }
                 }
             }
         }
-        return dp[0][2][0];
+        return dp[2][0];
     }
     private int solve(int i, int k, int buy, int[] prices, Integer dp[][][]){
         if(k == 0) return 0;
