@@ -37,17 +37,25 @@ Constraints:
 * Approach 3 : Iterative
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 4 : Iterative
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class SticklerThief{
     public int findMaxSum(int arr[]) {
 //        Integer dp[] = new Integer[arr.length + 1];
 //        return solve(0, arr, dp);
-        int dp[] = new int[arr.length + 2] ;
+        int a = 0;  // i + 1
+        int b = 0 ; // i + 2
         for(int i = arr.length - 1; i>= 0; i--){
-            dp[i] = dp[i + 1];
-            dp[i] = Math.max(dp[i], arr[i] + dp[i + 2]);
+            // dp[i] = dp[i + 1];
+            // dp[i] = Math.max(dp[i + 1], arr[i] + dp[i + 2]);
+            int sum = Math.max(a, arr[i] + b);
+            b = a;
+            a = sum;
         }
-        return dp[0];
+        return a;
     }
 
     private int solve(int i, int[] arr, Integer dp[]){
