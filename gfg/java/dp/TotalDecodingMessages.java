@@ -43,6 +43,10 @@ Constraints:
 * Approach 4 : Modified Top Down
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 5 : Optimize
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class TotalDecodingMessages{
 
@@ -51,27 +55,30 @@ public class TotalDecodingMessages{
     class Solution {
         public int countWays(String digits) {
             // code here
-            int[] dp = new int[digits.length() + 1];
-            dp[digits.length()] = 1;
+            //int[] dp = new int[digits.length() + 1];
+            int a = 1, b = 0;
             for(int i = digits.length() - 1; i>= 0; i--){
+                int sum = 0;
                 if(digits.charAt(i) == '0'){
-                    dp[i] = 0;
+                    sum = 0;
+                    b = a;
+                    a = sum;
                     continue;
                 }
                 int digit1 = digits.charAt(i) - '0';
-//                int single = dp[i + 1];
-                dp[i] = dp[i + 1];
-//                int doubl = 0;
+                sum = a;
+
                 if(i + 1 < digits.length()){
                     int digit2 = digit1 * 10 + (digits.charAt(i + 1) - '0');
                     if(digit2 >= 10 && digit2 <= 26){
-//                        doubl = dp[i + 2];
-                        dp[i] += dp[i + 2];
+                        sum += b;
                     }
                 }
-//                dp[i] = single + doubl;
+                b = a;
+                a = sum;
+                //dp[i] = single + doubl;
             }
-            return dp[0];
+            return a;
         }
 
         private int solve(int i, String digits, Integer[] dp ){
