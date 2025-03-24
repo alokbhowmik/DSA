@@ -35,6 +35,10 @@ Constraints:
 * Approach 2 : Recursive + Memorization
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 3 : Top Down
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class TotalDecodingMessages{
 
@@ -43,8 +47,25 @@ public class TotalDecodingMessages{
     class Solution {
         public int countWays(String digits) {
             // code here
-            Integer dp[] = new Integer[digits.length() + 1];
-            return solve(0, digits, dp);
+            int[] dp = new int[digits.length() + 1];
+            dp[digits.length()] = 1;
+            for(int i = digits.length() - 1; i>= 0; i--){
+                if(digits.charAt(i) == '0'){
+                    dp[i] = 0;
+                    continue;
+                }
+                int digit1 = digits.charAt(i) - '0';
+                int single = dp[i + 1];
+                int doubl = 0;
+                if(i + 1 < digits.length()){
+                    int digit2 = digit1 * 10 + (digits.charAt(i + 1) - '0');
+                    if(digit2 >= 10 && digit2 <= 26){
+                        doubl = dp[i + 2];
+                    }
+                }
+                dp[i] = single + doubl;
+            }
+            return dp[0];
         }
 
         private int solve(int i, String digits, Integer[] dp ){
