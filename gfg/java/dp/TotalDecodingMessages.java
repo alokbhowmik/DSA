@@ -39,6 +39,10 @@ Constraints:
 * Approach 3 : Top Down
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 4 : Modified Top Down
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class TotalDecodingMessages{
 
@@ -55,15 +59,17 @@ public class TotalDecodingMessages{
                     continue;
                 }
                 int digit1 = digits.charAt(i) - '0';
-                int single = dp[i + 1];
-                int doubl = 0;
+//                int single = dp[i + 1];
+                dp[i] = dp[i + 1];
+//                int doubl = 0;
                 if(i + 1 < digits.length()){
                     int digit2 = digit1 * 10 + (digits.charAt(i + 1) - '0');
                     if(digit2 >= 10 && digit2 <= 26){
-                        doubl = dp[i + 2];
+//                        doubl = dp[i + 2];
+                        dp[i] += dp[i + 2];
                     }
                 }
-                dp[i] = single + doubl;
+//                dp[i] = single + doubl;
             }
             return dp[0];
         }
