@@ -1,4 +1,4 @@
-package Trie;
+package dp;
 import java.util.*;
 /*
 *Problem Name : Word Break
@@ -26,7 +26,7 @@ Constraints:
 1 ≤ s.size() ≤ 3000
 1 ≤ dictionary.size() ≤ 1000
 1 ≤ dictionary[i].size() ≤ 100
-*
+* 
 * Approach 1 
 *--------------
 *TC = O(n * m) SC = O(n) m = max(dictiionary words length)
