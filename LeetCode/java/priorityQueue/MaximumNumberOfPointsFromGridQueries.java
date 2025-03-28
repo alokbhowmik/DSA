@@ -1,6 +1,8 @@
 package priorityQueue;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 /*
@@ -50,26 +52,89 @@ k == queries.length
 *TC = O(m * n * k ) SC = O(m * n )
 */
 public class MaximumNumberOfPointsFromGridQueries{
+//    public int[] maxPoints(int[][] grid, int[] queries) {
+//        int k = queries.length;
+//        int[] res = new int[k];
+//
+//        for(int i = 0; i<k; i++){
+//
+//            res[i] = solve(0, 0, queries[i], grid, new HashSet<String>());
+//        }
+//        return res;
+//    }
+//
+//    private int solve(int r, int c, int val, int[][] grid, Set<String> visited){
+//        if(r < 0 || r >= grid.length || c < 0 || c >= grid[0].length) return 0;
+//        if(grid[r][c] >= val) return 0;
+//        String cell = r + "@" + c;
+//        if(visited.contains(cell)) return 0 ;
+//        visited.add(cell);
+//        return 1 + solve(r + 1, c, val, grid, visited)
+//                + solve(r - 1, c, val, grid, visited)
+//                + solve(r, c + 1, val, grid, visited)
+//                + solve(r, c - 1, val, grid, visited);
+//    }
+
+//    --------------- Approach 2 ------------------
+
+    private final int[][] directions = {
+            { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }
+    };
+    private int rows, cols;
+
     public int[] maxPoints(int[][] grid, int[] queries) {
         int k = queries.length;
-        int[] res = new int[k];
+        rows = grid.length;
+        cols = grid[0].length;
 
-        for(int i = 0; i<k; i++){
+        int[][] pairs = new int[k][2];
+        Set<String> visited = new HashSet<>();
+        PriorityQueue<int[]> que = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 
-            res[i] = solve(0, 0, queries[i], grid, new HashSet<String>());
+        for (int i = 0; i < k; i++) {
+            pairs[i] = new int[] { queries[i], i };
         }
-        return res;
+
+        int[] temp = new int[k];
+        Arrays.sort(pairs, (a, b) -> a[0] - b[0]);
+        int idx = 0;
+        que.offer(new int[] { grid[0][0], 0, 0 });
+        visited.add(getCell(0, 0));
+
+        while (!que.isEmpty() && idx < k) {
+            // System.out.println(que.peek());
+
+            if (que.peek()[0] < pairs[idx][0]) {
+                temp[idx]++;
+                int[] currCell = que.poll();
+                for (int[] dir : directions) {
+                    int nr = currCell[1] + dir[0];
+                    int nc = currCell[2] + dir[1];
+                    if (isValid(nr, nc) &&
+                            !visited.contains(getCell(nr, nc))) {
+                        que.offer(new int[] { grid[nr][nc], nr, nc });
+                        visited.add(getCell(nr, nc));
+                    }
+                }
+            } else {
+                idx++;
+            }
+        }
+        int[] ans = new int[k];
+        for (int i = 1; i < k; i++) {
+            temp[i] += temp[i - 1];
+        }
+        for (int i = 0; i < k; i++) {
+            ans[pairs[i][1]] = temp[i];
+        }
+        return ans;
     }
 
-    private int solve(int r, int c, int val, int[][] grid, Set<String> visited){
-        if(r < 0 || r >= grid.length || c < 0 || c >= grid[0].length) return 0;
-        if(grid[r][c] >= val) return 0;
-        String cell = r + "@" + c;
-        if(visited.contains(cell)) return 0 ;
-        visited.add(cell);
-        return 1 + solve(r + 1, c, val, grid, visited)
-                + solve(r - 1, c, val, grid, visited)
-                + solve(r, c + 1, val, grid, visited)
-                + solve(r, c - 1, val, grid, visited);
+    private String getCell(int r, int c) {
+        return r + "@" + c;
+    }
+
+    private boolean isValid(int r, int c) {
+        return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 }
