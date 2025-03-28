@@ -50,6 +50,10 @@ k == queries.length
 * Approach 1 
 *--------------
 *TC = O(m * n * k ) SC = O(m * n )
+*
+* Approach 2
+*--------------
+*TC = O(k log(k) + m*nlog(m*n) ) SC = O(m * n + k  )
 */
 public class MaximumNumberOfPointsFromGridQueries{
 //    public int[] maxPoints(int[][] grid, int[] queries) {
