@@ -46,12 +46,27 @@ questions[i].length == 2
 * Approach 1  : Recursion + Memorization
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 2  : Iterative
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class SolvingQuestionsWithBrainpower{
     Long[] dp;
     public long mostPoints(int[][] questions) {
-        dp = new Long[questions.length + 1];
-        return solve(0, questions);
+//        dp = new Long[questions.length + 1];
+//        return solve(0, questions);
+        long[] dp = new long[questions.length + 1];
+
+        for(int i = questions.length - 1; i>= 0; i--){
+
+            long val = questions[i][0];
+            if(i + 1 + questions[i][1] <= questions.length){
+                val += dp[i + 1 + questions[i][1]];
+            }
+            dp[i] = Math.max(dp[i + 1], val);
+        }
+        return dp[0];
     }
 
     long solve(int i, int[][] questions){
