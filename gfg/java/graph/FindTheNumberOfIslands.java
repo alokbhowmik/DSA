@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.*;
+
 /*
 *Problem Name : Find the number of islands
 *
@@ -43,13 +45,33 @@ public class FindTheNumberOfIslands{
     }
 
     private void markedConnectedLand(int r, int c){
-        if(isValid(r, c)){
-            grid[r][c] = '.';
+        // DFS
+//        if(isValid(r, c)){
+//            grid[r][c] = '.';
+//
+//            for(int[] dir : directions){
+//                int nr = dir[0] + r;
+//                int nc = dir[1] + c;
+//                markedConnectedLand(nr, nc);
+//            }
+//        }
 
+        // BFS
+
+        Queue<int[]> que = new LinkedList<>();
+        que.add(new int[]{r, c});
+        grid[r][c] = '.';
+
+        while(!que.isEmpty()){
+            int[] curr = que.poll();
             for(int[] dir : directions){
-                int nr = dir[0] + r;
-                int nc = dir[1] + c;
-                markedConnectedLand(nr, nc);
+                int nr = dir[0] + curr[0];
+                int nc = dir[1] + curr[1];
+
+                if(isValid(nr, nc)){
+                    que.add(new int[]{nr, nc});
+                    grid[nr][nc] = '.';
+                }
             }
         }
     }
