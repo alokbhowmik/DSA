@@ -32,12 +32,12 @@ Constraints:
 *TC = O(n * m) SC = O(n) m = max(dictiionary words length)
 */
 public class WordBreak {
-    class TrieNode{
+    private class TrieNode{
         Map<Character, TrieNode> children = new HashMap<>();
         boolean isEnd = false;
     }
 
-    class Trie{
+    private class Trie{
         TrieNode root;
 
         Trie(){
