@@ -25,18 +25,37 @@ arr.size() % 3 = 1
 * Approach 1 
 *--------------
 *TC = O(n) SC = O(n)
+*
+* * Approach 2
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class UniqueNumberIII{
     public int getSingle(int[] arr) {
         // code here
-        Map<Integer, Integer> freq = new HashMap<>();
-        for(int num : arr){
-            freq.put(num, freq.getOrDefault(num, 0) + 1);
-        }
+//        Map<Integer, Integer> freq = new HashMap<>();
+//        for(int num : arr){
+//            freq.put(num, freq.getOrDefault(num, 0) + 1);
+//        }
+//
+//        for(int num : arr){
+//            if(freq.get(num) == 1) return num;
+//        }
+//        return -1;
 
-        for(int num : arr){
-            if(freq.get(num) == 1) return num;
+        // Approach 2
+        int res = 0;
+        for(int i = 0; i<32; i++){
+            int bitCount = 0;
+            for(int num : arr){
+                if((num & (1<< i))  != 0 ) {
+                    bitCount++;
+                }
+            }
+            if(bitCount % 3 != 0){
+                res |= (1 << i);
+            }
         }
-        return -1;
+        return res;
     }
 }
