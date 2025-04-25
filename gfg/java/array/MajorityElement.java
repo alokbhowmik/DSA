@@ -30,17 +30,37 @@ Constraints:
 * Approach 1  : HashMap
 *--------------
 *TC = O(n) SC = O(n)
+*
+* Approach 2  :
+*--------------
+*TC = O(n) SC = O(1)
 */
 public class MajorityElement{
     static int majorityElement(int arr[]) {
         // code here
-        Map<Integer, Integer> map = new HashMap<>();
-        int freq = arr.length / 2;
-        for(int num : arr){
-            map.put(num, map.getOrDefault(num, 0) + 1);
-            if(map.get(num) > freq) return num;
+//        Map<Integer, Integer> map = new HashMap<>();
+//        int freq = arr.length / 2;
+//        for(int num : arr){
+//            map.put(num, map.getOrDefault(num, 0) + 1);
+//            if(map.get(num) > freq) return num;
+//        }
+//        return -1;
+
+        int num = arr[0], freq = 1;
+        for(int i = 1; i < arr.length ; i++){
+            if(arr[i] == num) freq++;
+            else freq--;
+            if(freq == 0){
+                num = arr[i];
+                freq = 1;
+            }
         }
-        return -1;
+
+        freq = 0;
+        for(int ele : arr){
+            if(ele == num) freq++;
+        }
+        return freq > arr.length / 2 ? num : -1;
 
     }
 }
