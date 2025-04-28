@@ -1,5 +1,8 @@
 package dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 *Problem Name : Maximum sum of Non adjacent nodes
 *
@@ -29,6 +32,10 @@ Constraints:
 * Approach 1 
 *--------------
 *TC = O(2^n) SC = O(1)
+*
+* Approach 2
+*--------------
+*TC = O(n) SC = O(n)
 */
 public class MaximumSumOfNonAdjacentNodes{
     private class Node
@@ -43,12 +50,14 @@ public class MaximumSumOfNonAdjacentNodes{
             this.right = null;
         }
     }
+    private Map<Node, Integer> map ;
     public int getMaxSum(Node root) {
+        map = new HashMap<>();
         return solve(root);
     }
     private int solve(Node root){
         if(root == null) return 0 ;
-
+        if(map.get(root) != null) return map.get(root);
         int take = root.data;
         if(root.left != null){
             take += solve(root.left.left);
@@ -59,6 +68,7 @@ public class MaximumSumOfNonAdjacentNodes{
             take += solve(root.right.right);
         }
         int skip = solve(root.left) + solve(root.right);
-        return Math.max(take, skip);
+        map.put(root, Math.max(take, skip));
+        return map.get(root);
     }
 }
