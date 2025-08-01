@@ -55,7 +55,7 @@ public class BitwiseORsOfSubarrays{
             curr2.add(num);
             for(int num2 : curr){
                 curr2.add(num2 | num) ;
-            }
+            } 
             curr = curr2;
             ans.addAll(curr) ;
         }
